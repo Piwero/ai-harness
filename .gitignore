@@ -1,1 +1,9 @@
 .ai/
+dist/
+node_modules/
+*.log
+.DS_Store
+.env
+.env.local
+coverage/
+*.tsbuildinfo
