@@ -83,7 +83,7 @@ export class MergeEngine {
    * Create a three-way merge result with conflict markers
    */
   createConflictedContent(context: MergeContext): string {
-    const { original, local, incoming, filePath } = context;
+    const { local, incoming, filePath } = context;
     
     return `<<<<<<< CURRENT (${filePath})
 ${local}

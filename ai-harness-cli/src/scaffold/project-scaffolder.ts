@@ -2,10 +2,10 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as TOML from '@iarna/toml';
 import { InitOptions } from '../types/cli';
-import { ComponentVersion, HarnessConfiguration } from '../types/scaffold';
+import { HarnessConfiguration } from '../types/scaffold';
 import { TemplateStore } from './template-store';
 import { MetadataManager } from './metadata-manager';
-import { success, info, error, verbose } from '../utils/logger';
+import { success, info, verbose } from '../utils/logger';
 import { confirm } from '../utils/prompts';
 
 export class ProjectScaffolder {
@@ -160,7 +160,7 @@ export class ProjectScaffolder {
    */
   private calculateComponentHashes(
     sourcePath: string,
-    targetPath: string
+    _targetPath: string
   ): Record<string, string> {
     const hashes: Record<string, string> = {};
     

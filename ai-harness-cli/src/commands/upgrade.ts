@@ -14,7 +14,7 @@ import {
   warning,
   verbose 
 } from '../utils/logger';
-import { confirm, mergeConflict } from '../utils/prompts';
+import { mergeConflict } from '../utils/prompts';
 import { showDiff } from '../utils/diff';
 
 export function createUpgradeCommand(): Command {
@@ -160,7 +160,7 @@ async function upgradeComponent(
         newHashes[relativePath] = MetadataManager.calculateHash(mergeResult.content!);
         break;
 
-      case 'conflict':
+      case 'conflict': {
         warning(`Conflict in ${relativePath}`);
         const action = await mergeConflict(relativePath, { hasChanges: true });
         
@@ -172,7 +172,7 @@ async function upgradeComponent(
           case 'keep':
             newHashes[relativePath] = MetadataManager.calculateHash(localContent);
             break;
-          case 'diff':
+          case 'diff': {
             showDiff(localContent, incomingContent, 'current', 'incoming');
             // Re-prompt after showing diff
             const reAction = await mergeConflict(relativePath, { hasChanges: true });
@@ -183,12 +183,14 @@ async function upgradeComponent(
               newHashes[relativePath] = MetadataManager.calculateHash(localContent);
             }
             break;
+          }
           case 'skip':
             newHashes[relativePath] = metadataManager.getOriginalHash(component, relativePath) || 
                                       MetadataManager.calculateHash(localContent);
             break;
         }
         break;
+      }
     }
   }
 

@@ -1,5 +1,3 @@
-import * as path from 'path';
-import * as fs from 'fs-extra';
 import { Command } from 'commander';
 import { ListOptions } from '../types/cli';
 import { TemplateStore, MetadataManager } from '../scaffold';

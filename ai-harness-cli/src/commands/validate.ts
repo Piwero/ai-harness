@@ -35,7 +35,7 @@ export function createValidateCommand(): Command {
   return command;
 }
 
-function validateProject(projectPath: string, isVerbose?: boolean): ValidationResult {
+function validateProject(projectPath: string, _isVerbose?: boolean): ValidationResult {
   const result: ValidationResult = {
     valid: true,
     errors: [],

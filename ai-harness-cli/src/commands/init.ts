@@ -1,4 +1,3 @@
-import * as path from 'path';
 import { Command } from 'commander';
 import { InitOptions } from '../types/cli';
 import { ProjectScaffolder } from '../scaffold';
