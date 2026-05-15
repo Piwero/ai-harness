@@ -1,0 +1,17 @@
+[harness]
+name = "base"
+version = "1.0.0"
+description = "Universal harness with git, logging, and security guides"
+dependencies = []
+
+[guides]
+files = ["guides/commit-conventions.md", "guides/logging.md"]
+templates = []
+
+[sensors]
+computational = ["sensors/git-hooks.md"]
+inferential = []
+
+[integration]
+provides = ["git", "logging", "security"]
+requires = []
