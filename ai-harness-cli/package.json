@@ -1,6 +1,6 @@
 {
   "name": "@piwero/ai-harness-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI tool for AI Harness Framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,7 +23,12 @@
     "lint": "eslint src/**/*.ts",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": ["ai", "harness", "cli", "scaffolding"],
+  "keywords": [
+    "ai",
+    "harness",
+    "cli",
+    "scaffolding"
+  ],
   "license": "MIT",
   "dependencies": {
     "commander": "^11.1.0",
