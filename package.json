@@ -1,6 +1,6 @@
 {
   "name": "ai-harness-framework",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Composable AI agent harness framework for OpenCode",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
