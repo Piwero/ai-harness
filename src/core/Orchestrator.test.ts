@@ -4,6 +4,17 @@ import * as path from 'path';
 describe('Orchestrator', () => {
   const testProjectPath = path.join(__dirname, '../../');
 
+  // Suppress expected console warnings about missing components
+  let consoleWarnSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleWarnSpy.mockRestore();
+  });
+
   describe('initialization', () => {
     it('should initialize with project path', () => {
       const orchestrator = new Orchestrator(testProjectPath);
