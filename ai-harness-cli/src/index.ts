@@ -17,7 +17,7 @@ import { error } from './utils/logger';
 
 // Package info (will be populated by require)
 const packageInfo: PackageInfo = {
-  name: 'ai-harness-cli',
+  name: '@piwero/ai-harness-cli',
   version: '0.1.0',
   description: 'CLI tool for AI Harness Framework'
 };

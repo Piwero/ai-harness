@@ -1,11 +1,20 @@
 {
-  "name": "ai-harness-cli",
+  "name": "@piwero/ai-harness-cli",
   "version": "0.1.0",
   "description": "CLI tool for AI Harness Framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
     "ah": "./bin/ah"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "templates",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "tsc",

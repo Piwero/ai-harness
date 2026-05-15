@@ -5,7 +5,7 @@ A global CLI tool for initializing and managing AI Harness Framework components 
 ## Installation
 
 ```bash
-npm install -g ai-harness-cli
+npm install -g @piwero/ai-harness-cli
 ```
 
 ## Quick Start
@@ -203,6 +203,59 @@ npm run build
 npm test
 npm link  # Link globally for testing
 ```
+
+## Contributing & Publishing
+
+### For Contributors
+
+```bash
+cd ai-harness-cli
+npm install
+npm run build
+npm test
+npm link  # Link globally for testing
+```
+
+### For Maintainers (Publishing to NPM)
+
+This package is automatically published to NPM via GitHub Actions when a version tag is pushed.
+
+#### Prerequisites
+
+1. **Create NPM Access Token**:
+   - Go to https://www.npmjs.com → Login → Profile → Access Tokens → Generate New Token (Classic)
+   - Select "Publish" scope
+   - Copy the token
+
+2. **Add GitHub Secret**:
+   - Go to GitHub repository → Settings → Secrets and variables → Actions
+   - Click "New repository secret"
+   - Name: `NPM_PUBLISH_TOKEN`
+   - Value: Your NPM token from step 1
+
+#### Publishing a New Version
+
+```bash
+# In the ai-harness-cli directory
+cd ai-harness-cli
+
+# Version bump (patch, minor, or major)
+npm version patch   # 0.1.0 → 0.1.1
+# or
+npm version minor   # 0.1.0 → 0.2.0
+# or
+npm version major   # 0.1.0 → 1.0.0
+
+# Push the tag to trigger the pipeline
+git push
+git push --tags
+```
+
+The GitHub Actions pipeline will automatically:
+1. Run full test suite
+2. Build the TypeScript
+3. Publish to `@piwero/ai-harness-cli` on NPM
+4. Create a GitHub Release
 
 ## License
 
