@@ -30,3 +30,9 @@ export interface CommandContext {
   projectPath: string;
   options: CLIOptions;
 }
+
+export interface PackageInfo {
+  name: string;
+  version: string;
+  description: string;
+}
