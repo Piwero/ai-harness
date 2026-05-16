@@ -31,19 +31,20 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "commander": "^11.1.0",
-    "chalk": "^4.1.2",
-    "inquirer": "^8.2.6",
-    "diff": "^5.1.0",
     "@iarna/toml": "^2.2.5",
-    "yaml": "^2.3.4",
-    "fs-extra": "^11.2.0"
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "diff": "^5.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.6",
+    "yaml": "^2.3.4"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
-    "@types/inquirer": "^9.0.7",
     "@types/diff": "^5.0.9",
     "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.10.0",
     "@typescript-eslint/eslint-plugin": "^6.13.0",
     "@typescript-eslint/parser": "^6.13.0",
     "eslint": "^8.54.0",
