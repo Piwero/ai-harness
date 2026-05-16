@@ -1,0 +1,37 @@
+[tools]
+node = "22"
+
+[env]
+NODE_ENV = "development"
+
+[tasks.test]
+description = "Run all tests"
+run = "npm test"
+
+[tasks.build]
+description = "Build TypeScript"
+run = "npm run build"
+
+[tasks.lint]
+description = "Run ESLint"
+run = "npm run lint"
+
+[tasks.typecheck]
+description = "Run TypeScript type check"
+run = "npm run typecheck"
+
+[tasks.ci]
+description = "Run full CI checks (build, test, lint, typecheck)"
+depends = ["build", "test", "lint", "typecheck"]
+
+[tasks.release:patch]
+description = "Bump patch version (0.0.1 -> 0.0.2), commit, tag, and push"
+run = "scripts/release.sh patch"
+
+[tasks.release:minor]
+description = "Bump minor version (0.1.0 -> 0.2.0), commit, tag, and push"
+run = "scripts/release.sh minor"
+
+[tasks.release:major]
+description = "Bump major version (0.0.0 -> 1.0.0), commit, tag, and push"
+run = "scripts/release.sh major"
