@@ -24,14 +24,14 @@ run = "npm run typecheck"
 description = "Run full CI checks (build, test, lint, typecheck)"
 depends = ["build", "test", "lint", "typecheck"]
 
-[tasks.release:patch]
+[tasks.release_patch]
 description = "Bump patch version (0.0.1 -> 0.0.2), commit, tag, and push"
 run = "scripts/release.sh patch"
 
-[tasks.release:minor]
+[tasks.release_minor]
 description = "Bump minor version (0.1.0 -> 0.2.0), commit, tag, and push"
 run = "scripts/release.sh minor"
 
-[tasks.release:major]
+[tasks.release_major]
 description = "Bump major version (0.0.0 -> 1.0.0), commit, tag, and push"
 run = "scripts/release.sh major"
