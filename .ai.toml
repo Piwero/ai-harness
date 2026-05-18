@@ -1,7 +1,7 @@
 [project]
-name = "ai-harness-framework"
-topology = "typescript-lib"
+name = "workspace"
+topology = "generic"
 
 [harness]
-base = ["base"]
-runtime = ["typescript"]
+base = [ "base@1.0.0" ]
+runtime = [ ]

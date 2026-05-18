@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as TOML from '@iarna/toml';
 import { verbose, success } from '../utils/logger';
-import { ProviderVersion, ProviderManifest, ParsedProviderSpec } from './provider-store';
+import { ProviderVersion, ParsedProviderSpec } from './provider-store';
 import { ProviderStore } from './provider-store';
 
 export interface SetupOptions {
@@ -90,6 +90,7 @@ export class ProviderScaffolder {
 
     try {
       const content = fs.readFileSync(aiTomlPath, 'utf-8');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const config = TOML.parse(content) as any;
       
       const name = config.project?.name || path.basename(projectPath);
@@ -141,8 +142,6 @@ export class ProviderScaffolder {
     variables: SubstitutionVariables,
     force?: boolean
   ): Promise<void> {
-    const manifest = providerVersion.manifest;
-    
     // Check if component is supported by this provider
     const componentPath = this.getComponentSourcePath(providerVersion, component);
     if (!componentPath) {
@@ -275,6 +274,7 @@ export class ProviderScaffolder {
 
     // Load template opencode.json
     const templatePath = path.join(providerVersion.path, 'opencode.json');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let config: any;
 
     if (fs.existsSync(templatePath)) {
@@ -302,29 +302,41 @@ export class ProviderScaffolder {
   /**
    * Filter configuration to only include sections relevant to installed components
    */
-  private filterConfigByComponents(config: any, components: string[]): any {
+  private filterConfigByComponents(config: unknown, components: string[]): unknown {
+    interface OpencodeConfig {
+      $schema?: string;
+      model?: string;
+      tools?: unknown;
+      instructions?: string;
+      shell?: unknown;
+      permission?: unknown;
+      agent?: unknown;
+    }
+    
+    const typedConfig = config as OpencodeConfig;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const filtered: any = {
-      $schema: config.$schema || 'https://opencode.ai/config.json',
-      model: config.model,
+      $schema: typedConfig.$schema || 'https://opencode.ai/config.json',
+      model: typedConfig.model,
     };
 
     // Always include tools and instructions if present
-    if (config.tools) {
-      filtered.tools = config.tools;
+    if (typedConfig.tools) {
+      filtered.tools = typedConfig.tools;
     }
-    if (config.instructions) {
-      filtered.instructions = config.instructions;
+    if (typedConfig.instructions) {
+      filtered.instructions = typedConfig.instructions;
     }
-    if (config.shell) {
-      filtered.shell = config.shell;
+    if (typedConfig.shell) {
+      filtered.shell = typedConfig.shell;
     }
-    if (config.permission) {
-      filtered.permission = config.permission;
+    if (typedConfig.permission) {
+      filtered.permission = typedConfig.permission;
     }
 
     // Only include agent if agents component is installed
-    if (components.includes('agents') && config.agent) {
-      filtered.agent = config.agent;
+    if (components.includes('agents') && typedConfig.agent) {
+      filtered.agent = typedConfig.agent;
     }
 
     // Note: skills and plugins are auto-discovered by OpenCode from directories
@@ -336,11 +348,14 @@ export class ProviderScaffolder {
   /**
    * Remove disallowed keys from config (commands, skills, etc.)
    */
-  private sanitizeConfig(config: any): any {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private sanitizeConfig(config: unknown): unknown {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const disallowedKeys = ['commands', 'skills'];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sanitized: any = {};
-
-    for (const [key, value] of Object.entries(config)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    for (const [key, value] of Object.entries(config as any)) {
       if (!disallowedKeys.includes(key)) {
         sanitized[key] = value;
       }

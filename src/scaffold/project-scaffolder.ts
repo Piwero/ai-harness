@@ -5,10 +5,11 @@ import { InitOptions } from '../types/cli';
 import { HarnessConfiguration } from '../types/scaffold';
 import { TemplateStore } from './template-store';
 import { MetadataManager } from './metadata-manager';
+import { ProviderScaffolder } from './provider-scaffolder';
+import { ProviderStore } from './provider-store';
 import { success, info, verbose } from '../utils/logger';
 import { confirm } from '../utils/prompts';
-import { ProviderScaffolder } from './provider-scaffolder';
-import { ParsedProviderSpec } from './provider-store';
+
 
 export class ProjectScaffolder {
   private templateStore: TemplateStore;
@@ -52,6 +53,17 @@ export class ProjectScaffolder {
     // Initialize metadata
     const metadataManager = new MetadataManager(projectPath, this.isVerbose);
     metadataManager.initMetadata();
+
+    // Setup provider if specified
+    if (options.provider) {
+      const providerStore = new ProviderStore(this.isVerbose);
+      const spec = providerStore.parseProviderSpec(options.provider);
+      const providerScaffolder = new ProviderScaffolder(this.isVerbose);
+      await providerScaffolder.setupProvider(projectPath, spec, {
+        force: options.force,
+        verbose: this.isVerbose,
+      });
+    }
 
     success('Initialized harness framework');
     info('Next steps:');

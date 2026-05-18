@@ -8,6 +8,26 @@ Composable AI agent harness framework for OpenCode.
 npm install -g @piwero/ai-harness-cli
 ```
 
+## Agent Providers
+
+AI Harness supports multiple AI agent providers.
+
+### OpenCode Provider
+
+```bash
+# Initialize with OpenCode
+ah init --provider opencode
+
+# Add to existing project
+ah add opencode
+
+# Add specific components
+ah add opencode:agents,skills
+
+# Using provider command
+ah provider setup opencode
+```
+
 ## Usage
 
 Initialize a new project:

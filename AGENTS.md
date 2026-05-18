@@ -51,3 +51,57 @@ templates/                # Project templates
 ## Templates
 
 Harness components live in `.ai/harness/` and `templates/`. These are copied to user projects via CLI commands.
+
+## Provider Architecture
+
+AI Harness CLI uses a provider system to scaffold AI agent configurations from different AI platforms (OpenCode, Claude Code, Cursor, etc.).
+
+### How Providers Work
+
+Each provider is defined by:
+
+1. **Templates Directory**: Provider-specific templates in `templates/<provider>/<version>/`
+2. **Manifest**: `manifest.json` defines available components and their file mappings
+3. ** Scaffolding**: Provider components are copied to user projects at `.ai/harness/<provider>/`
+
+Example provider structure:
+```
+templates/
+  opencode/
+    1.0.0/
+      manifest.json       # Component definitions
+      agents/
+        SUBAGENTS.md      # Subagent definitions
+      skills/
+        README.md         # Skill documentation
+      components/
+        *.md              # Provider components
+```
+
+### Adding a New Provider
+
+1. Create `templates/<provider>/1.0.0/` directory
+2. Add `manifest.json` with component definitions:
+   ```json
+   {
+     "version": "1.0.0",
+     "components": {
+       "agents": ["agents/SUBAGENTS.md"],
+       "skills": ["skills/README.md"]
+     }
+   }
+   ```
+3. Add template files for each component
+4. Update CLI to support the provider in init/add commands
+
+### Provider Commands Reference
+
+| Command | Description |
+|---------|-------------|
+| `ah init --provider <name>` | Initialize project with provider |
+| `ah add <provider>` | Add all provider components |
+| `ah add <provider>:<component>` | Add specific component |
+| `ah provider setup <name>` | Run provider setup wizard |
+| `ah provider list` | List available providers |
+
+Provider templates are automatically discovered at runtime from the `templates/` directory.

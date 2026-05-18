@@ -10,10 +10,12 @@ export interface CLIOptions {
 export interface InitOptions extends CLIOptions {
   template?: string;
   force?: boolean;
+  provider?: string;
 }
 
 export interface AddOptions extends CLIOptions {
   version?: string;
+  force?: boolean;
 }
 
 export interface UpgradeOptions extends CLIOptions {

@@ -8,6 +8,7 @@ export function createAddCommand(): Command {
     .description('Add a harness component to the project')
     .argument('<component>', 'Component name (e.g., typescript, python) or provider (e.g., opencode, opencode:agents)')
     .option('-v, --version <version>', 'Specific version to install')
+    .option('-f, --force', 'Overwrite existing configuration')
     .option('--verbose', 'Enable verbose output')
     .action(async (component: string, options: AddOptions) => {
       try {
@@ -21,7 +22,10 @@ export function createAddCommand(): Command {
         if (isProvider) {
           const scaffolder = new ProviderScaffolder(options.verbose);
           const providerSpec = providerStore.parseProviderSpec(component);
-          await scaffolder.setupProvider(projectPath, providerSpec);
+          await scaffolder.setupProvider(projectPath, providerSpec, {
+            force: options.force,
+            verbose: options.verbose,
+          });
           return;
         }
         
