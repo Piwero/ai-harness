@@ -1,6 +1,6 @@
 {
   "name": "@piwero/ai-harness-cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "CLI tool for AI Harness Framework",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
