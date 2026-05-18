@@ -1,0 +1,16 @@
+[provider]
+name = "opencode"
+version = "1.0.0"
+description = "OpenCode provider template with agent, skill, plugin, and MCP support"
+
+[capabilities]
+agents = true
+skills = true
+plugins = true
+mcp = true
+
+[paths]
+agents = "agents/"
+skills = "skills/"
+plugins = "plugins/"
+mcp = "mcp/"

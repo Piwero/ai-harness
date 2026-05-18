@@ -1,0 +1,30 @@
+name = "{{project_name}}-mcp"
+description = "MCP server configuration for {{project_name}} project"
+version = "1.0.0"
+
+[mcp]
+enabled = true
+timeout = 30
+
+[server]
+# MCP server connection details
+url = "http://localhost:8080/mcp"
+port = 8080
+
+[authentication]
+type = "api_key"
+api_key = "${MCP_API_KEY}"
+
+[tools]
+# Available MCP tools
+allowed_tools = ["search", "edit", "read", "write"]
+max_tool_calls = 50
+
+[resources]
+# MCP resource constraints
+max_context_tokens = 8000
+max_file_size_kb = 1024
+
+[logging]
+level = "INFO"
+log_file = ".ai/logs/mcp-{{project_name}}.log"
