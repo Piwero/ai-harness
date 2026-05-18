@@ -116,6 +116,9 @@ export class ProjectScaffolder {
   private async createAiToml(projectPath: string, topology?: string): Promise<void> {
     const aiTomlPath = path.join(projectPath, '.ai.toml');
     
+    // Ensure the project directory exists before writing the file
+    fs.ensureDirSync(projectPath);
+    
     const config: HarnessConfiguration = {
       project: {
         name: path.basename(projectPath),
