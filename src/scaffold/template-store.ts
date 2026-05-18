@@ -91,6 +91,24 @@ export class TemplateStore {
   }
 
   /**
+   * Check if a provider exists with at least one version
+   * Providers live in templates/<provider>/ directories
+   */
+  hasProvider(name: string): boolean {
+    const providerPath = path.join(this.bundledTemplatesPath, name);
+    
+    if (!fs.existsSync(providerPath)) {
+      return false;
+    }
+
+    const entries = fs.readdirSync(providerPath);
+    return entries.some(entry => {
+      const fullPath = path.join(providerPath, entry);
+      return fs.statSync(fullPath).isDirectory() && this.isValidVersion(entry);
+    });
+  }
+
+  /**
    * Get list of all available components
    */
   getAvailableComponents(): string[] {
