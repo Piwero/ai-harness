@@ -16,12 +16,31 @@ import {
 // Utils
 import { error } from './utils/logger';
 
-// Package info (will be populated by require)
-const packageInfo: PackageInfo = {
-  name: '@piwero/ai-harness-cli',
-  version: '0.1.0',
-  description: 'CLI tool for AI Harness Framework'
-};
+// Package info - read from package.json dynamically
+import * as path from 'path';
+import * as fs from 'fs';
+
+function getPackageInfo(): PackageInfo {
+  try {
+    // Try to read from package.json relative to the built file
+    const packageJsonPath = path.join(__dirname, '..', 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+    return {
+      name: packageJson.name || '@piwero/ai-harness-cli',
+      version: packageJson.version || '0.2.0',
+      description: packageJson.description || 'CLI tool for AI Harness Framework'
+    };
+  } catch {
+    // Fallback if package.json can't be read
+    return {
+      name: '@piwero/ai-harness-cli',
+      version: '0.2.0',
+      description: 'CLI tool for AI Harness Framework'
+    };
+  }
+}
+
+const packageInfo: PackageInfo = getPackageInfo();
 
 async function main(): Promise<void> {
   const program = new Command();
@@ -50,9 +69,15 @@ async function main(): Promise<void> {
     await program.parseAsync(process.argv);
   } catch (err) {
     if (err instanceof Error) {
-      // Don't show help errors as fatal
-      if (err.name === 'CommanderError' && err.message.includes('outputHelp')) {
-        process.exit(0);
+      // Don't show help or version display as fatal errors
+      if (err.name === 'CommanderError') {
+        const errCode = (err as any).code;
+        const exitCode = (err as any).exitCode;
+        // exitOverride makes Commander throw with exit code in error.exitCode
+        // code will be 'commander.version' or 'commander.help' for display operations
+        if (exitCode === 0 || errCode === 'commander.version' || errCode === 'commander.help') {
+          process.exit(0);
+        }
       }
       error(`Fatal error: ${err.message}`);
     }
