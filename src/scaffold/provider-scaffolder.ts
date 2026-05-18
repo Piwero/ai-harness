@@ -54,11 +54,15 @@ export class ProviderScaffolder {
       model: 'gpt-4o', // Default model, user configures in OpenCode UI
     };
 
+    // Determine which components to install
+    const componentsToInstall = components.length > 0 ? components : this.getAllAvailableComponents(providerVersion);
+    verbose(`Installing components: ${componentsToInstall.join(', ')}`, this.isVerbose);
+
     // Setup directory structure
     await this.setupDirectoryStructure(projectPath, provider, options.force);
 
     // Copy and process components
-    for (const component of components) {
+    for (const component of componentsToInstall) {
       await this.copyComponent(projectPath, providerVersion, component, variables, options.force);
     }
 
@@ -106,6 +110,21 @@ export class ProviderScaffolder {
         description: `Project ${path.basename(projectPath)}`,
       };
     }
+  }
+
+  /**
+   * Get all available components from provider manifest
+   */
+  private getAllAvailableComponents(providerVersion: ProviderVersion): string[] {
+    const available: string[] = [];
+    const { capabilities } = providerVersion.manifest;
+
+    if (capabilities.agents) available.push('agents');
+    if (capabilities.skills) available.push('skills');
+    if (capabilities.plugins) available.push('plugins');
+    if (capabilities.mcp) available.push('mcp');
+
+    return available;
   }
 
   /**
