@@ -9,7 +9,8 @@ import {
   createAddCommand,
   createUpgradeCommand,
   createValidateCommand,
-  createListCommand
+  createListCommand,
+  createProviderCommand
 } from './commands';
 
 // Utils
@@ -40,6 +41,7 @@ async function main(): Promise<void> {
   program.addCommand(createUpgradeCommand());
   program.addCommand(createValidateCommand());
   program.addCommand(createListCommand());
+  program.addCommand(createProviderCommand());
 
   // Global error handling
   program.exitOverride();

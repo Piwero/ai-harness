@@ -7,6 +7,7 @@ export function createInitCommand(): Command {
   const command = new Command('init')
     .description('Initialize AI Harness in the current directory')
     .option('-t, --template <name>', 'Project template to use', 'generic')
+    .option('--provider <name>', 'Agent provider to setup (e.g., opencode)')
     .option('-f, --force', 'Overwrite existing configuration')
     .option('-v, --verbose', 'Enable verbose output')
     .action(async (options: InitOptions) => {

@@ -7,6 +7,8 @@ import { TemplateStore } from './template-store';
 import { MetadataManager } from './metadata-manager';
 import { success, info, verbose } from '../utils/logger';
 import { confirm } from '../utils/prompts';
+import { ProviderScaffolder } from './provider-scaffolder';
+import { ParsedProviderSpec } from './provider-store';
 
 export class ProjectScaffolder {
   private templateStore: TemplateStore;

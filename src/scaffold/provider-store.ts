@@ -70,7 +70,7 @@ export class ProviderStore {
 
     try {
       const manifestContent = fs.readFileSync(manifestPath, 'utf-8');
-      const manifest = TOML.parse(manifestContent) as ProviderManifest;
+      const manifest = TOML.parse(manifestContent) as unknown as ProviderManifest;
       
       verbose(`Loaded manifest for ${name}@${targetVersion}`, this.isVerbose);
 
