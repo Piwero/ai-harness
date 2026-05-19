@@ -170,6 +170,7 @@ description = "Test project description"
 
       const skillsPath = path.join(tempDir, '.opencode', 'skills');
       expect(fs.existsSync(skillsPath)).toBe(true);
+      expect(fs.existsSync(path.join(skillsPath, 'tdd', 'SKILL.md'))).toBe(true);
 
       // Verify agents were not added
       const agentsPath = path.join(tempDir, '.opencode', 'agents');

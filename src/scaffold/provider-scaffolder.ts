@@ -153,7 +153,7 @@ export class ProviderScaffolder {
 
   /**
    * Copy a component directory from template to project with variable substitution.
-   * For the 'agents' component, copies from the CLI root agents/ directory
+   * For 'agents' and 'skills' components, copies from the CLI root directories
    * (provider-agnostic source of truth) instead of the provider template directory.
    */
   private async copyComponent(
@@ -171,10 +171,12 @@ export class ProviderScaffolder {
       );
     }
 
-    // Agents are provider-agnostic: use the CLI root agents/ directory
-    const sourcePath = component === 'agents'
-      ? path.join(__dirname, '../../agents')
-      : path.join(providerVersion.path, componentPath);
+    // Agents and skills are provider-agnostic: use CLI root directories
+    const rootComponentDirs: Record<string, string> = {
+      agents: path.join(__dirname, '../../agents'),
+      skills: path.join(__dirname, '../../skills'),
+    };
+    const sourcePath = rootComponentDirs[component] ?? path.join(providerVersion.path, componentPath);
     
     if (!fs.existsSync(sourcePath)) {
       throw new Error(
