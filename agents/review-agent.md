@@ -1,3 +1,13 @@
+---
+description: Validates implementation against specification and ensures code quality, correctness, and adherence to standards.
+mode: subagent
+model: anthropic/claude-sonnet-4-5
+temperature: 0.1
+permission:
+  edit: deny
+  bash: deny
+---
+
 # Review Agent
 
 ## Role

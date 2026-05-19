@@ -82,7 +82,7 @@ describe('ah provider commands', () => {
 
       const agentsPath = path.join(tempDir, '.opencode', 'agents');
       expect(fs.existsSync(agentsPath)).toBe(true);
-      expect(fs.existsSync(path.join(agentsPath, 'default.json'))).toBe(true);
+      expect(fs.existsSync(path.join(agentsPath, 'orchestrator.md'))).toBe(true);
     });
 
     it('should create skills component', () => {
@@ -107,7 +107,7 @@ describe('ah provider commands', () => {
       expect(fs.existsSync(path.join(tempDir, '.opencode', 'mcp'))).toBe(true);
     });
 
-    it('should substitute variables in generated files', () => {
+    it('should copy agents with opencode-compatible frontmatter', () => {
       // Create a minimal .ai.toml for substitution testing
       fs.writeFileSync(path.join(tempDir, '.ai.toml'), `
 [project]
@@ -120,10 +120,11 @@ description = "Test project description"
         encoding: 'utf-8'
       });
 
-      const agentsPath = path.join(tempDir, '.opencode', 'agents', 'default.json');
-      const agentConfig = JSON.parse(fs.readFileSync(agentsPath, 'utf-8'));
-      expect(agentConfig.name).toBe('test-project-agent');
-      expect(agentConfig.description).toContain('test-project');
+      const orchestratorPath = path.join(tempDir, '.opencode', 'agents', 'orchestrator.md');
+      expect(fs.existsSync(orchestratorPath)).toBe(true);
+      const content = fs.readFileSync(orchestratorPath, 'utf-8');
+      expect(content).toContain('mode: primary');
+      expect(content).toContain('description:');
     });
   });
 
@@ -144,7 +145,7 @@ description = "Test project description"
 
       const agentsPath = path.join(tempDir, '.opencode', 'agents');
       expect(fs.existsSync(agentsPath)).toBe(true);
-      expect(fs.existsSync(path.join(agentsPath, 'default.json'))).toBe(true);
+      expect(fs.existsSync(path.join(agentsPath, 'orchestrator.md'))).toBe(true);
 
       // Verify skills were not added
       const skillsPath = path.join(tempDir, '.opencode', 'skills');

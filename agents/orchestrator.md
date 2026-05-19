@@ -1,3 +1,10 @@
+---
+description: Coordinates workflow and dispatches tasks to specialized agents (spec, code, review) within the Harness Framework.
+mode: primary
+model: anthropic/claude-sonnet-4-5
+temperature: 0.3
+---
+
 # Orchestrator Agent
 
 ## Role

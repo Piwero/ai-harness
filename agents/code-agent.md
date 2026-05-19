@@ -1,3 +1,10 @@
+---
+description: Implements specifications following strict Test-Driven Development (TDD) methodology using Red-Green-Refactor cycles.
+mode: subagent
+model: anthropic/claude-sonnet-4-5
+temperature: 0.3
+---
+
 # Code Agent
 
 ## Role
