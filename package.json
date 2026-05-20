@@ -11,6 +11,8 @@
     "dist",
     "bin",
     "templates",
+    "agents",
+    "skills",
     "README.md"
   ],
   "publishConfig": {
