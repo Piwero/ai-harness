@@ -29,6 +29,10 @@
     "cli",
     "scaffolding"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Piwero/ai-harness"
+  },
   "license": "MIT",
   "dependencies": {
     "@iarna/toml": "^2.2.5",
