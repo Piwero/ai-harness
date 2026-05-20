@@ -72,6 +72,9 @@ describe('ah provider commands', () => {
       const config = JSON.parse(fs.readFileSync(opencodeJsonPath, 'utf-8'));
       expect(config.$schema).toBe('https://opencode.ai/config.json');
       expect(config.model).toBeDefined();
+      expect(config.shell).toBeUndefined();
+      expect(config.tools).toBeUndefined();
+      expect(config.instructions).toBeUndefined();
     });
 
     it('should create agents component by default', () => {

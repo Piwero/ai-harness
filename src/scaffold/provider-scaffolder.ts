@@ -332,9 +332,6 @@ export class ProviderScaffolder {
     interface OpencodeConfig {
       $schema?: string;
       model?: string;
-      tools?: unknown;
-      instructions?: string;
-      shell?: unknown;
       permission?: unknown;
       agent?: unknown;
     }
@@ -346,16 +343,6 @@ export class ProviderScaffolder {
       model: typedConfig.model,
     };
 
-    // Always include tools and instructions if present
-    if (typedConfig.tools) {
-      filtered.tools = typedConfig.tools;
-    }
-    if (typedConfig.instructions) {
-      filtered.instructions = typedConfig.instructions;
-    }
-    if (typedConfig.shell) {
-      filtered.shell = typedConfig.shell;
-    }
     if (typedConfig.permission) {
       filtered.permission = typedConfig.permission;
     }
@@ -364,9 +351,6 @@ export class ProviderScaffolder {
     if (components.includes('agents') && typedConfig.agent) {
       filtered.agent = typedConfig.agent;
     }
-
-    // Note: skills and plugins are auto-discovered by OpenCode from directories
-    // We don't include them in config per OpenCode schema
 
     return filtered;
   }
@@ -377,7 +361,7 @@ export class ProviderScaffolder {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private sanitizeConfig(config: unknown): unknown {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const disallowedKeys = ['commands', 'skills'];
+    const disallowedKeys = ['commands', 'skills', 'tools', 'instructions', 'shell'];
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const sanitized: any = {};
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
