@@ -48,6 +48,9 @@ jobs:
     name: Build and Publish
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     
     steps:
       - name: Checkout code
@@ -62,7 +65,7 @@ jobs:
       - name: Setup Node.js for NPM
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
@@ -81,8 +84,6 @@ jobs:
 
       - name: Publish to NPM
         run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
   create-release:
     name: Create GitHub Release
