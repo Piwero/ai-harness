@@ -1,7 +1,6 @@
 ---
 description: Creates comprehensive specifications and Software Design Documents (SDDs) from requirements using structured analysis.
 mode: subagent
-model: anthropic/claude-sonnet-4-5
 temperature: 0.2
 permission:
   edit: deny
