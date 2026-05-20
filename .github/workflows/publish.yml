@@ -68,9 +68,6 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Upgrade npm for OIDC trusted publishing
-        run: npm install -g npm@latest
-
       - name: Install dependencies
         run: npm ci
 
@@ -86,7 +83,7 @@ jobs:
           test -x bin/ah
 
       - name: Publish to NPM
-        run: npm publish
+        run: npx --yes npm@^11.5.1 publish
 
   create-release:
     name: Create GitHub Release
